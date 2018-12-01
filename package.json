@@ -1,0 +1,33 @@
+{
+  "name": "qa-app",
+  "version": "1.0.0",
+  "description": "Test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd frontend && npm run build && cd .. && nodemon backend/src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheCLCode/QA-App.git"
+  },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheCLCode/QA-App/issues"
+  },
+  "homepage": "https://github.com/TheCLCode/QA-App#readme",
+  "engines": {
+    "node": "11.x"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "nodemon": "^1.18.7",
+    "path": "^0.12.7",
+    "react-scripts": "^2.1.1"
+  }
+}
