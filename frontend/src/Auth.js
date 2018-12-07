@@ -1,13 +1,15 @@
 import auth0 from 'auth0-js';
+import { config } from './config/env.js';
 
 class Auth {
   constructor() {
+    let url = config.URL;
     this.auth0 = new auth0.WebAuth({
       // the following three lines MUST be updated
       domain: 'theclcode.auth0.com',
       audience: 'https://theclcode.auth0.com/userinfo',
       clientID: 'OYUdtZYPSdUH4I67QEvKC4CPWo5HiqVg',
-      redirectUri: 'http://localhost:3000/callback',
+      redirectUri: url + '/callback',
       responseType: 'token id_token',
       scope: 'openid profile'
     });

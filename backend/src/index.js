@@ -39,25 +39,6 @@ app.use(cors());
 // log HTTP requests
 app.use(morgan("combined"));
 
-// retrieve all questions
-app.get("/getall", (req, res) => {
-  const qs = questions.map(q => ({
-    id: q.id,
-    title: q.title,
-    description: q.description,
-    answers: q.answers.length
-  }));
-  res.send(qs);
-});
-
-// get a specific question
-app.get("/:id", (req, res) => {
-  const question = questions.filter(q => q.id === parseInt(req.params.id));
-  if (question.length > 1) return res.status(500).send();
-  if (question.length === 0) return res.status(404).send();
-  res.send(question[0]);
-});
-
 const checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
     cache: true,
@@ -72,7 +53,34 @@ const checkJwt = jwt({
   algorithms: ["RS256"]
 });
 
-// insert a new question
+// Serve any static files
+app.use(express.static(path.join(__dirname, "../../frontend/build")));
+app.get("/test", (req, res)=>{
+  res.send("hey");
+});
+
+// retrieve all questions
+app.get("/getall", (req, res) => {
+  const qs = questions.map(q => ({
+    id: q.id,
+    title: q.title,
+    description: q.description,
+    answers: q.answers.length
+  }));
+  res.send(qs);
+});
+
+// get a specific question
+app.get("/question/:id", (req, res) => {
+  const question = questions.filter(q => q.id === parseInt(req.params.id));
+  if (question.length > 1) return res.status(500).send();
+  if (question.length === 0) return res.status(404).send();
+  res.send(question[0]);
+});
+
+
+
+// // insert a new question
 app.post("/", (req, res) => {
   const { title, description } = req.body;
   const newQuestion = {
@@ -100,13 +108,8 @@ app.post("/answer/:id", (req, res) => {
   res.status(200).send();
 });
 
-console.log(__dirname);
-
-// Serve any static files
-app.use(express.static(path.join(__dirname, "../../frontend/build")));
-
 // Handle React routing, return all requests to React app
-app.get("*", function(req, res) {
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../../frontend/build", "index.html"));
 });
 
