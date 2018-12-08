@@ -18,13 +18,13 @@ const questions = [
     id: 1,
     title: "Why?",
     description: "Bakit? Por que?",
-    answers: ["x"]
+    answers: []
   },
   {
     id: 2,
     title: "Sino?",
     description: "Who? Quien?",
-    answers: ["x", "y", "z"]
+    answers: []
   }
 ];
 
@@ -56,12 +56,9 @@ const checkJwt = jwt({
 
 // Serve any static files
 app.use(express.static(path.join(__dirname, "../../build")));
-app.get("/test", (req, res)=>{
-  res.send("hey");
-});
 
 // retrieve all questions
-app.get("/getall", (req, res) => {
+app.get("/api/questions/getall", (req, res) => {
   const qs = questions.map(q => ({
     id: q.id,
     title: q.title,
@@ -72,7 +69,7 @@ app.get("/getall", (req, res) => {
 });
 
 // get a specific question
-app.get("/question/:id", (req, res) => {
+app.get("/api/questions/:id", (req, res) => {
   const question = questions.filter(q => q.id === parseInt(req.params.id));
   if (question.length > 1) return res.status(500).send();
   if (question.length === 0) return res.status(404).send();
@@ -82,7 +79,7 @@ app.get("/question/:id", (req, res) => {
 
 
 // // insert a new question
-app.post("/", (req, res) => {
+app.post("/api/questions/submit", (req, res) => {
   const { title, description } = req.body;
   const newQuestion = {
     id: questions.length + 1,
@@ -95,7 +92,7 @@ app.post("/", (req, res) => {
 });
 
 // insert a new answer to a question
-app.post("/answer/:id", (req, res) => {
+app.post("/api/answer/:id", (req, res) => {
   const { answer } = req.body;
 
   const question = questions.filter(q => q.id === parseInt(req.params.id));
@@ -111,7 +108,7 @@ app.post("/answer/:id", (req, res) => {
 
 // Handle React routing, return all requests to React app
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../frontend/build", "index.html"));
+  res.sendFile(path.join(__dirname, "../../build", "index.html"));
 });
 
 // start the server

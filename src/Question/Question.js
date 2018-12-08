@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import SubmitAnswer from './SubmitAnswer';
 import auth0Client from '../Auth';
+import { config } from '../config/env.js';
 
 class Question extends Component {
   constructor(props) {
     super(props);
+    this.URL = config.URL;
     this.state = {
       question: null,
     };
@@ -19,14 +21,14 @@ class Question extends Component {
 
   async refreshQuestion() {
     const { match: { params } } = this.props;
-    const question = (await axios.get(`http://localhost:8081/question/${params.questionId}`)).data;
+    const question = (await axios.get(`${this.URL}/api/questions/${params.questionId}`)).data;
     this.setState({
       question,
     });
   }
 
   async submitAnswer(answer) {
-    await axios.post(`http://localhost:8081/answer/${this.state.question.id}`, {
+    await axios.post(`${this.URL}/api/answer/${this.state.question.id}`, {
       answer,
     }, {
       headers: { 'Authorization': `Bearer ${auth0Client.getIdToken()}` }

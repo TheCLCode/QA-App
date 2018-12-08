@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import auth0Client from '../Auth';
 import axios from 'axios';
+import { config } from '../config/env.js';
 
 class NewQuestion extends Component {
   constructor(props) {
     super(props);
-
+    this.URL = config.URL;
     this.state = {
       disabled: false,
       title: '',
@@ -31,7 +32,7 @@ class NewQuestion extends Component {
       disabled: true,
     });
 
-    await axios.post('http://localhost:8081', {
+    await axios.post(`${this.URL}/api/questions/submit`, {
       title: this.state.title,
       description: this.state.description,
     }, {

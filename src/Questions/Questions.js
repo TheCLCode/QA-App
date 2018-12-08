@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { config } from '../config/env.js';
 
 class Questions extends Component {
   constructor(props) {
     super(props);
-
+    this.URL = config.URL;
     this.state = {
       questions: null
     };
   }
 
   async componentDidMount() {
-    const questions = (await axios.get("http://localhost:8081/getall")).data;
+    const questions = (await axios.get(`${this.URL}/api/questions/getall`)).data;
     this.setState({
       questions
     });

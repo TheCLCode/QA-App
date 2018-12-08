@@ -3,13 +3,13 @@ import { config } from './config/env.js';
 
 class Auth {
   constructor() {
-    let url = config.URL;
+    let URL = config.URL;
     this.auth0 = new auth0.WebAuth({
       // the following three lines MUST be updated
       domain: 'theclcode.auth0.com',
       audience: 'https://theclcode.auth0.com/userinfo',
       clientID: 'OYUdtZYPSdUH4I67QEvKC4CPWo5HiqVg',
-      redirectUri: url + '/callback',
+      redirectUri: URL + '/callback',
       responseType: 'token id_token',
       scope: 'openid profile'
     });
