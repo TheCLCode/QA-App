@@ -7,7 +7,7 @@ const morgan = require("morgan");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 const path = require("path");
-const PORT = process.env.PORT || 8082;
+const PORT = process.env.PORT || 8081;
 
 // define the Express app
 const app = express();
@@ -55,7 +55,7 @@ const checkJwt = jwt({
 });
 
 // Serve any static files
-app.use(express.static(path.join(__dirname, "../../frontend/build")));
+app.use(express.static(path.join(__dirname, "../../build")));
 app.get("/test", (req, res)=>{
   res.send("hey");
 });
