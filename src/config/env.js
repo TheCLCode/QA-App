@@ -1,4 +1,4 @@
-var URL = "http://theclcode-qandapp.herokuapp.com";
+var URL = "https://theclcode-qandapp.herokuapp.com";
 export const config = {
 	URL
 };
