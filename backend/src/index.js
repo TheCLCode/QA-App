@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 const path = require("path");
+const PORT = process.env.PORT || 8082;
 
 // define the Express app
 const app = express();
@@ -114,6 +115,6 @@ app.get("*", (req, res) => {
 });
 
 // start the server
-app.listen(8081, () => {
-  console.log("listening on port 8081");
+app.listen(PORT, () => {
+  console.log(`listening on port ${PORT}`);
 });
