@@ -7,6 +7,8 @@ class Questions extends Component {
   constructor(props) {
     super(props);
     this.URL = config.URL;
+    console.log("URL");
+    console.log(this.URL);
     this.state = {
       questions: null
     };
